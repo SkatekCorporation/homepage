@@ -4,6 +4,7 @@ Parcourez toutes les dossiers ci ceux-ci n'ont pas un fichier index.php ou index
 # Installation
 Cloner le depot depuis `https://github.com/SkatekCorporation/Web-server-home-page` en tapant ce commande dans votre terminal
 `git clone https://github.com/SkatekCorporation/Web-server-home-page.git homepage`
+Pensez &agrave; faire un coup de `composer install` dans le dossier `homepage`
 # Utilisation
 Creer un fichier `index.php` dans la racine de votre serveur puis mettez ceci dans
 
