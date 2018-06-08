@@ -1,0 +1,33 @@
+{# 
+    Macro du modal (Pop-in)
+    @param string title     :: Le titre du modal
+    @param string content   :: Le contenu du modal
+    @param array options    :: Les differentes options du modal
+        options.id          :: Le ID du boutton de declenchement du modal
+        //options.close       :: Le texte du bouton pour fermer le modal
+        options.link.url    :: Adresse de redirection 
+        options.link.text   :: Texte sur le bouton de redirection
+        opyions.link.class  :: Classe pour le bouton de redirection (style bootstrap)
+#}
+{% macro set(title, content, options = []) %}
+    <div class="modal fade" id="{{ options.id ?: 'stephanie' }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{ options.id ?: 'stephanie' }}ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-danger pull-right btn-xs" data-dismiss="modal">×</button>
+                    <h3>{{ title ?: 'Stephanie Framework' }}</h3>
+                </div>
+                <div class="modal-body" id="#modal-body">
+                    {{ content | raw ?: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur voluptas debitis voluptatem adipisci aut, mollitia pariatur assumenda, rerum iure aperiam quo! Porro hic placeat facere, accusamus dolore sit et quia." }}
+                </div>
+                {% if options.footer %}
+                    <div class="modal-footer">
+                        <a href="#" id="annuler" class="btn btn-default" data-dismiss="modal">{{ options.close ?: 'Continuer' }}</a>
+                        <a id="{{ options.id ?: 'stephanie' }}_link" {{ options.dismiss ? 'data-dismiss="modal"' : '' }} href="{{ options.link.url ? url(options.link.url) : '#' }}" class="btn btn-{{ options.link.class ?: 'primary' }}">{{ options.link.icon ? icon(options.link.icon) }} {{ options.link.text ?: 'Continuer' }} </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script> $("#{{ options.id ?: 'stephanie' }}").click(function(){ $("#{{ options.id ?: 'stephanie' }}Modal").modal('show'); $("#{{ options.id ?: 'stephanie' }}_link").removeAttr('data-dismiss') }); </script>
+{% endmacro %}

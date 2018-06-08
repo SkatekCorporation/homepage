@@ -1,0 +1,75 @@
+/**
+* styles.css
+* @author Souvenance <skavunga@gmail.com>
+* @version 1.1
+*/
+.image-head {
+    width: 80%;
+    margin-bottom: 15px;
+    border-radius: 15px;
+}
+
+.center {
+    text-align: center;
+}
+
+.jumbotron {
+    padding: 0;
+}
+
+.btn-gros{
+    height: 5em;
+    padding-top: 1.9em;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+/* body{
+    background: black;
+} */
+
+.contenu-b {
+    background-color: rgba(1, 78, 151, 0.08);
+    border       : 1px solid #dddddd;
+    border-radius: 3px;
+}
+
+#app-n {
+    padding: 0px;
+}
+
+
+.h-28px {
+    height: 28px;
+    padding: 5px;
+}
+
+.page-header{
+    margin: 10px;
+}
+
+.chargement {
+    padding-top: 20%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+}
+
+.c-cont {
+    background: #222222;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.c-cont, .c-cont thead {
+    color: white;
+}
+
+.c-white {
+    color: white !important;
+}
+
+.c-cont table, .c-cont select, .c-cont input {
+    color: black;
+}

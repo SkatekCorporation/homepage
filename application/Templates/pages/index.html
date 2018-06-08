@@ -1,0 +1,84 @@
+{# 
+/**
+* index.html
+* @author Souvenance <skavunga@gmail.com>
+* @version 1.1
+*/      
+#}
+{% extends 'base.html' %}
+    
+    {% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hovered datatable">
+                <thead>
+                    <th>Description</th>
+                    <th>Lien</th>
+                    <th>Type</th>
+                    <th>Modification</th>
+                    <th>Taille</th>
+                    <th>Permissions</th>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                        <tr>
+                            <td>{{ file.name | capitalize }}</td>
+                            <td>
+                                {% if file.type == 'dir' %}
+                                <a href="{{ file.linki }}" class="btn btn-xs btn-info" title="Ouvrir le dossier" rel="tooltip"> 
+                                    {{ icon('share') }} 
+                                </a>
+                                    {% if file.index %}
+                                        <a href="{{ file.link }}" target="_blank" class="btn btn-xs btn-success" title="Executer le projet" rel="tooltip"> 
+                                            {{ icon('new-window') }} 
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{{ file.link }}" target="_blank" class="btn btn-xs btn-primary" title="Lire le fichier" rel="tooltip"> 
+                                        {{ icon('zoom-in') }} 
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td>{{ file.type == 'dir' ? 'Dossier' | icon('folder-close') : 'Fichier' | icon('file') }}</td>
+                            <td>{{ file.modified | date(format_date)  }}</td>
+                            <td>
+                                {% if file.type == 'file' %}
+                                    {{ file.size }}
+                                {% endif %}
+                            </td>
+                            <td>{{ file.perms }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>            
+    </div>
+{% endblock %}
+
+{% block css %}
+ {{ cssHtml('jquery.datatables') }}
+ 
+ {{ cssHtml('themes/smoothness/jquery-ui-1.8.4.custom') }}
+
+ <style>
+     .dataTables_scroll {
+         margin-bottom: 8px;
+         border-bottom: 1px solid black; 
+     }
+ </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $('.datatable').dataTable( {
+                // "sScrollY": 280,
+                // "bJQueryUI": true,
+                //"sPaginationType": "full_numbers",
+                "oLanguage": {
+                    "sUrl": "{{ url('/assets/datafr.json') }}"
+                }
+            } );
+        } );
+    </script>
+{% endblock %}

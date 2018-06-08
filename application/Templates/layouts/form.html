@@ -1,0 +1,32 @@
+{# 
+/**
+* form.html
+* @author Souvenance <skavunga@gmail.com>
+* @version 1.1
+*/    
+#}
+{% macro input(name, label, value = null, options = []) %}
+    <div class="form-group {{ options.class ?: 'col-md-6' }}" style="{{ options.style }}" >
+        <label for="{{ name }}"> {{ label }} </label>
+        <input {{ options.af ? 'autofocus = "autofocus"' : null }} {{ options.disabled ? 'disabled = "disabled"' : null }} type="{{ options.type ?: 'text' }}" {{ options.rq ? 'required = "required"' : null }} placeholder="{{ options.ph ?: '' }}" id="{{ name }}" name="{{ name }}" value="{{ value|e }}" class="form-control" />
+    </div>
+{% endmacro %}
+
+{% macro select(name, label, values = [], selected, options = []) %}
+    <div class="form-group {{ options.class ?: 'col-md-6' }}">
+        <label for="{{ name }}"> {{ label }} </label>
+        <select id="{{ name }}" name="{{ name }}" class="form-control" {{ options.rq ? 'required = "required"' : null }}  {{ options.disabled ? 'disabled = "disabled"' : null }} {{ options.af ? 'autofocus = "autofocus"' : null }}>
+            <option value=""> {{ options.empty ?: 'Choisissez une valeur' }} </option>
+            {% for key, value in values %}
+            <option value="{{ key }}" {{ key == selected ? "selected" : "" }}>{{ value }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endmacro %}
+
+{% macro textarea(name, label, value = null, options = []) %}
+    <div class="form-group {{ options.class ?: 'col-md-6' }} ">
+        <label for="{{ name }}"> {{ label }} </label>
+        <textarea  {{ options.disabled ? 'disabled = "disabled"' : null }} placeholder="{{ options.ph ?: '' }}" {{ options.rq ? 'required = "required"' : null }} name="{{ name }}" id="{{ name }}" class="form-control">{{ value }}</textarea>
+    </div>
+{% endmacro %}

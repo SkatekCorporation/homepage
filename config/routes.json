@@ -1,0 +1,12 @@
+{
+    "get": {
+        "/"      : ["Pages#index"],
+        "/skatek"       : ["Pages#skatek"],
+        "/skatek.net"   : ["Pages#skatek"],
+        "/apropos"      : ["Pages#apropos"],
+        "/manuel"       : ["Pages#manuel"]
+    },
+    "set": {
+        
+    }
+}

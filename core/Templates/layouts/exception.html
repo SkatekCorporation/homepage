@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Erreur {{code}} : {{ title }}</title>
+        {{ cssHtml('bootstrap.min') }}
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="page-header">Erreur {{ code }}</h1>
+            <div class="jumbotron alert-danger">
+                <p class="text-center">
+                    <span>{{ content|e }}</span><br>
+                    
+                    <br>
+                    <a href="{{ rootLink }}" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-home"></i> Page d'accueil
+                    </a>
+                </p>
+            </div>
+            <footer class="page-footer">
+                &copy; 2018, Skatek Corporation
+            </footer>
+        </div>
+    </body>
+</html>

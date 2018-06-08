@@ -1,0 +1,8 @@
+# .htaccess
+# @author Souvenance <skavunga@gmail.com>
+# @version 1.1
+#    
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

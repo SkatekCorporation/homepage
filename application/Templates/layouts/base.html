@@ -1,0 +1,98 @@
+{# 
+ /**
+* layout.html
+* @author Souvenance <skavunga@gmail.com>
+* @version 1.1
+*/ 
+ #}
+ {% import "macros.html" as m %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block title %}
+    <title> {{ title|default(software) }} | {{ software }}</title>
+    {% endblock %}
+
+    {% if app_theme is not null and app_theme != 'default' %}
+      {{ cssHtml('bootstrap.min') }}
+      {{ cssHtml('themes/bootstrap-' ~ app_theme ~ '.min') }}
+    {% else %}
+      {{ cssHtml('bootstrap-cerulean.min') }}
+    {% endif %}
+
+    {{ cssHtml('jumbotron') }}
+    {{ cssHtml('styles') }}
+    {{ jsHtml('jquery.min') }}
+
+    {% block css %}{% endblock %}
+
+  </head>
+
+  <body>
+    {{ renderFlash() }}
+    {% block navmenu %}
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="navbar-brand">Web Explorer</span>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              {% block menu %}
+              <li class="{{ activeClass('/') }}" > {{ linkHtml('/', 'Accueil') }} </li>
+              <li > 
+                <a href="/phpmyadmin">PhpMyAdmin</a>  
+              </li>
+              {% endblock %}
+            </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+    {% endblock %}
+<br>
+    <div class="container c-cont">
+      {% block content %}
+      <div class="row">
+        <div class="col-sm-3" id="navbar-g">
+          <div class="list-group">
+              {% block navbar %}
+                {{ linkHtml('/', 'Page d\'accueil', { class: 'list-group-item active' }) }}
+              {% endblock %}
+          </div>
+        </div>
+        <div class="col-sm-9 imprimer-zone">
+          {% block corps %}
+              <h2 class="header">Contenu</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt ipsam, explicabo, nobis tempore earum distinctio inventore ab laudantium unde ducimus accusantium nostrum quo similique quisquam culpa porro quos corrupti hic?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In officiis consectetur nulla eius nobis, tempore minima vel maxime illum fuga et reiciendis, eum delectus impedit obcaecati omnis perferendis corrupti. Consectetur.
+              </p>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto, omnis? Debitis eveniet, totam, praesentium aliquam, expedita consequatur nihil et pariatur cumque nam quaerat labore eos? Expedita natus in labore saepe? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione fuga aut esse veritatis. Doloremque, nemo consequatur labore voluptas, in quae, omnis repudiandae ducimus incidunt saepe maxime nostrum ea cum nesciunt?</p>
+              {% block baspage %}{% endblock %}
+          {% endblock %}
+        </div>
+      </div>
+      {% endblock %}
+
+      <hr>
+      <footer>
+        {% block footer %}
+            <p class="text-center">&copy; Copyright 2018, {{ linkHtml('/apropos', software, { rel: 'tooltip', title: 'A propos' }) }} powered by {{ linkHtml('/skatek', 'Skatek Corporation', { rel: 'tooltip', title: 'A propos de Skatek Corporation' }) }} </p>
+        {% endblock %}
+      </footer>   
+      {% block beforefooter %}{% endblock %}   
+    </div> <!-- /container -->
+    {{ jsHtml('bootstrap.min') }}
+    {{ jsHtml('jquery.dataTables.min') }}
+    {{ jsHtml('scripts') }}
+    {% block scripts %}{% endblock %}
+  </body>
+  </html>

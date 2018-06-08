@@ -1,0 +1,30 @@
+{# 
+/**
+* layout.html
+* @author Souvenance <skavunga@gmail.com>
+* @version 1.1
+*/    
+#}
+{% extends "base.html" %}
+
+{% block navbar %}
+    {{ linkHtml('/apropos', 'A propos de ' ~ software, { class: 'list-group-item' ~ activeClass('/apropos') }) }}
+    {{ linkHtml('/skatek', 'Skatek Corporation', { class: 'list-group-item' ~ activeClass('/skatek') }) }}
+    {{ linkHtml('/manuel', "Manuel d'utilisation", { class: 'list-group-item' ~ activeClass('/manuel') }) }}
+{% endblock %}
+
+{% block corps %}
+    {% block baspage %}
+        <div class="row">
+            <hr>
+            <div class="text-center">
+                <div class="btn-group">
+                    {{ linkHtml('/apropos', 'A propos de ' ~ software, { class: 'btn btn-primary' }) }}
+                    {{ linkHtml('/skatek', 'Skatek Corporation', { class: 'btn btn-info' }) }}
+                    {{ linkHtml('/manuel', "Manuel d'utilisation", { class: 'btn btn-warning' }) }}
+                </div>
+            </div>
+            <br>
+        </div>
+    {% endblock %}    
+{% endblock %}
