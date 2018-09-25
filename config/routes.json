@@ -7,6 +7,6 @@
         "/manuel"       : ["Pages#manuel"]
     },
     "set": {
-        
+        "/search": ["Pages#search"]
     }
 }

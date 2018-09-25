@@ -23,6 +23,20 @@ class Pages extends AppController {
         ]);
     }
 
+    public function search(){
+
+
+      debug(
+      $this->request->getData()
+    );
+    exit();
+
+      $files = new Files();
+      $this->render('table', [
+        'files' => $files->getContents()
+      ]);
+    }
+
     public function skatek()
     {
         $this->render('skatek', [

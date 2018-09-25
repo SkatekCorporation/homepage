@@ -15,15 +15,10 @@
     <title> {{ title|default(software) }} | {{ software }}</title>
     {% endblock %}
 
-    {% if app_theme is not null and app_theme != 'default' %}
-      {{ cssHtml('bootstrap.min') }}
-      {{ cssHtml('themes/bootstrap-' ~ app_theme ~ '.min') }}
-    {% else %}
-      {{ cssHtml('bootstrap-cerulean.min') }}
-    {% endif %}
+    {{ cssHtml('bootstrap.min') }}
 
     {{ cssHtml('jumbotron') }}
-    <!-- {{ cssHtml('styles') }} -->
+
     {{ jsHtml('jquery.min') }}
 
     {% block css %}{% endblock %}
@@ -51,8 +46,16 @@
               <li >
                 <a href="/phpmyadmin">PhpMyAdmin</a>
               </li>
+              <!-- <li class="btn btn-danger btn-xs">
+                <a href="javascript:history.go(-1)" class="color-white">{{ icon('arrow-left') }} Retour</a>
+              </li> -->
               {% endblock %}
             </ul>
+            <form class="navbar-form navbar-right" id="search_form">
+              <input type="hidden" name="folder" value="{{ 34 }}">
+              <input type="text" class="form-control" name="search" id="search_field" placeholder="Recherche ...">
+              <button type="submit" class="btn btn-primary">{{ icon('search') }} Rechercher</button>
+            </form>
         </div><!--/.navbar-collapse -->
       </div>
     </div>
@@ -91,7 +94,7 @@
       {% block beforefooter %}{% endblock %}
     </div> <!-- /container -->
     {{ jsHtml('bootstrap.min') }}
-    {{ jsHtml('jquery.dataTables.min') }}
+    {{ jsHtml('jquery-tablesorter') }}
     {{ jsHtml('scripts') }}
     {% block scripts %}{% endblock %}
   </body>

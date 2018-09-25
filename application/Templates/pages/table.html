@@ -1,0 +1,32 @@
+<table class="table table-striped table-hover tablesorter">
+    <thead>
+        <th>{{ icon('tag') }} Description</th>
+        <th>{{ icon('hdd') }} Taille</th>
+        <th>{{ icon('lock') }} Permissions</th>
+        <th>{{ icon('calendar') }} Mis &agrave; jours</th>
+    </thead>
+    <tbody>
+        {% for file in files %}
+            <tr>
+                <td>
+                    <a href="{{ file.linki }}" title="Ouvrir">
+                      {{ file.type == 'dir' ? icon('folder-open') : icon('file') }} &nbsp;
+                      {{ file.name | capitalize }}
+                    </a>
+                    {% if file.index %}
+                        <a href="{{ file.link }}" target="_blank" class="btn btn-xs btn-success pull-right" title="Explorer" rel="tooltip">
+                            {{ icon('new-window') }} Explorer
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if file.type == 'file' %}
+                        {{ file.size }}
+                    {% endif %}
+                </td>
+                <td>{{ file.perms }}</td>
+                <td>{{ file.modified | date('d-m-Y H:i:s')  }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
