@@ -1,9 +1,9 @@
-{# 
+{#
  /**
 * layout.html
 * @author Souvenance <skavunga@gmail.com>
 * @version 1.1
-*/ 
+*/
  #}
  {% import "macros.html" as m %}
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
     {% endif %}
 
     {{ cssHtml('jumbotron') }}
-    {{ cssHtml('styles') }}
+    <!-- {{ cssHtml('styles') }} -->
     {{ jsHtml('jquery.min') }}
 
     {% block css %}{% endblock %}
@@ -48,8 +48,8 @@
           <ul class="nav navbar-nav">
               {% block menu %}
               <li class="{{ activeClass('/') }}" > {{ linkHtml('/', 'Accueil') }} </li>
-              <li > 
-                <a href="/phpmyadmin">PhpMyAdmin</a>  
+              <li >
+                <a href="/phpmyadmin">PhpMyAdmin</a>
               </li>
               {% endblock %}
             </ul>
@@ -87,8 +87,8 @@
         {% block footer %}
             <p class="text-center">&copy; Copyright 2018, {{ linkHtml('/apropos', software, { rel: 'tooltip', title: 'A propos' }) }} powered by {{ linkHtml('/skatek', 'Skatek Corporation', { rel: 'tooltip', title: 'A propos de Skatek Corporation' }) }} </p>
         {% endblock %}
-      </footer>   
-      {% block beforefooter %}{% endblock %}   
+      </footer>
+      {% block beforefooter %}{% endblock %}
     </div> <!-- /container -->
     {{ jsHtml('bootstrap.min') }}
     {{ jsHtml('jquery.dataTables.min') }}

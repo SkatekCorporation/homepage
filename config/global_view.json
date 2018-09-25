@@ -1,13 +1,13 @@
 {
     "app_theme"     : [
+      "slate",
 	"default",
 	"spacelab",
-         
-        "lumen",          
-        "cyborg", 
-        "slate", 
-        "simplex", 
-        "darkly", 
+        "lumen",
+        "cyborg",
+
+        "simplex",
+        "darkly",
         "united"
     ],
     "format_date"   : "l, d F Y"

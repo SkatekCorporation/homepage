@@ -15,7 +15,9 @@ class Pages extends AppController {
     {
         $files = new Files();
 
-        parent::debut('index', [
+        // debug($files->getContents()); exit;
+
+        $this->render('index', [
             'title' => 'Accueil',
             'files' => $files->getContents()
         ]);

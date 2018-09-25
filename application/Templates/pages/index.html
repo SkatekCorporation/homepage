@@ -1,69 +1,72 @@
-{# 
+{#
 /**
 * index.html
 * @author Souvenance <skavunga@gmail.com>
 * @version 1.1
-*/      
+*/
 #}
 {% extends 'base.html' %}
-    
+
     {% block content %}
     <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped table-hovered datatable">
+        <div class="col-md-8 panel panel-default">
+            <table class="table table-striped table-hover">
                 <thead>
-                    <th>Description</th>
-                    <th>Lien</th>
-                    <th>Type</th>
-                    <th>Modification</th>
-                    <th>Taille</th>
-                    <th>Permissions</th>
+                    <th>{{ icon('tag') }} Description</th>
+                    <th>{{ icon('hdd') }} Taille</th>
+                    <th>{{ icon('lock') }} Permissions</th>
+                    <th>{{ icon('calendar') }} Mis &agrave; jours</th>
                 </thead>
                 <tbody>
                     {% for file in files %}
                         <tr>
-                            <td>{{ file.name | capitalize }}</td>
                             <td>
-                                {% if file.type == 'dir' %}
-                                <a href="{{ file.linki }}" class="btn btn-xs btn-info" title="Ouvrir le dossier" rel="tooltip"> 
-                                    {{ icon('share') }} 
+                                <a href="{{ file.linki }}" title="Ouvrir">
+                                  {{ file.type == 'dir' ? icon('folder-open') : icon('file') }} &nbsp;
+                                  {{ file.name | capitalize }}
                                 </a>
-                                    {% if file.index %}
-                                        <a href="{{ file.link }}" target="_blank" class="btn btn-xs btn-success" title="Executer le projet" rel="tooltip"> 
-                                            {{ icon('new-window') }} 
-                                        </a>
-                                    {% endif %}
-                                {% else %}
-                                    <a href="{{ file.link }}" target="_blank" class="btn btn-xs btn-primary" title="Lire le fichier" rel="tooltip"> 
-                                        {{ icon('zoom-in') }} 
+                                {% if file.index %}
+                                    <a href="{{ file.link }}" target="_blank" class="btn btn-xs btn-success pull-right" title="Explorer" rel="tooltip">
+                                        {{ icon('new-window') }} Explorer
                                     </a>
                                 {% endif %}
                             </td>
-                            <td>{{ file.type == 'dir' ? 'Dossier' | icon('folder-close') : 'Fichier' | icon('file') }}</td>
-                            <td>{{ file.modified | date(format_date)  }}</td>
                             <td>
                                 {% if file.type == 'file' %}
                                     {{ file.size }}
                                 {% endif %}
                             </td>
                             <td>{{ file.perms }}</td>
+                            <td>{{ file.modified | date('d-m-Y H:i:s')  }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        </div>            
+        </div>
+        <div class="col-md-4">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <div class="panel-title">
+                Autres informations
+              </div>
+              <div class="panel-body">
+
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 {% endblock %}
 
 {% block css %}
  {{ cssHtml('jquery.datatables') }}
- 
+
  {{ cssHtml('themes/smoothness/jquery-ui-1.8.4.custom') }}
 
  <style>
      .dataTables_scroll {
          margin-bottom: 8px;
-         border-bottom: 1px solid black; 
+         border-bottom: 1px solid black;
      }
  </style>
 {% endblock %}
