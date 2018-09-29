@@ -18,19 +18,7 @@
 {% block scripts %}
     <script>
         $(document).ready(function() {
-          $('#search_form').on('submit', function(e,f){
-            e.preventDefault();
-            $.ajax({
-              url: "{{ url('/search') }}",
-              data: $(this).serialize(),
-              type: 'post'
-            }).success(function(resp){
-              console.log(resp)
-            }).error(function (err) {
-              console.log('Erreur: ');
-              console.log(err);
-            });
-          })
+          
         } );
     </script>
 {% endblock %}

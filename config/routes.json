@@ -1,12 +1,10 @@
 {
     "get": {
         "/"      : ["Pages#index"],
-        "/skatek"       : ["Pages#skatek"],
-        "/skatek.net"   : ["Pages#skatek"],
-        "/apropos"      : ["Pages#apropos"],
-        "/manuel"       : ["Pages#manuel"]
+        "/skatek_corporation" : ["Pages#skatek"],
+        "/skatek.net"   : ["Pages#skatek"]
     },
     "set": {
-        "/search": ["Pages#search"]
+        "/recherche_query": ["Recherches#index"]
     }
 }

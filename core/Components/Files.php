@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Pour un groupe des fichiers a traiter
+ * @author Souvenance <skavunga@gmail.com>
+ */
+
 namespace Stephanie\Components;
 
 use Stephanie\Handlers\Session;
@@ -40,11 +45,18 @@ class Files {
      */
     private $_indexes = ['index.html', 'index.php', 'default.php', 'index.cgi'];
 
-    public function __construct()
+    /**
+     * Initialisation
+     * @param string $dir Le repertoire a rechercher
+     * @param string $absolutePath Le chemin absolu
+     */
+    public function __construct($directory = null, $absolutePath = null)
     {
-        $this->_absolutePath = Session::get('absolutePath');
+        if($absolutePath == null)
+            $this->_absolutePath = Session::get('absolutePath');
         $this->_relativePath = DOMAIN;
-        $this->_directory = Session::get('r_chemin');
+        if($directory == null)
+            $this->_directory = Session::get('r_chemin');
         $this->setExceptions(trim(DOMAIN, '/'));
         $this->setExceptions($this->_indexes);
     }
@@ -106,9 +118,10 @@ class Files {
     /**
      * Obtenir le contenu d'un dossier
      * @param string $dir Nom du dossier
+     * @param bool $sort Si le tableau doit etre trie
      * @return array Les contenus
      */
-    public function getContents($dir = null)
+    public function getContents($dir = null, $sort = true)
     {
         if($dir == null)
         {
@@ -118,28 +131,28 @@ class Files {
         if (! is_dir($dir)) return null;
         $index     = 0;
         $repertory = opendir($dir);
+        $contents = [];
 
         for ($index = 0; ($content = readdir($repertory)); $index++) {
             if (in_array($content, $this->_exceptions)) {
                 $index--; continue;
             }
 
-			if ( $this->isWindowsPath($dir)) {
+			if ($this->isWindowsPath($dir)) {
 				$file = trim($dir, '/') . DS . $content;
 			} else {
 				$file = DS . trim($dir, '/'). DS . $content;
 			}
 
-            $contents[$index]['name']     = $content;
-            $contents[$index]['path']     = $file;
-            $contents[$index]['linki']     = str_replace($this->_absolutePath, $this->_relativePath, $file);
-            $contents[$index]['link']     = str_replace($this->_absolutePath, '/', $file);
-            $contents[$index]['type']     = filetype($file);
-            $contents[$index]['perms']    = $this->fileConvertPerms(fileperms($file));// substr(sprintf('%o', fileperms($file)), -4);
-            $contents[$index]['size']     = $this->FileSizeConvert(filesize($file));
-            $contents[$index]['modified'] = filemtime($file);
+            $contents[$index] = new Stream($this->correctSlash($file));
+            $contents[$index]->setName($content);
+            $contents[$index]->setDirinfo($this->_directory);
+            $contents[$index]->setLinki($this->correctSlash(str_replace($this->_absolutePath, $this->_relativePath, $file)));
+            $contents[$index]->setLink($this->correctSlash(str_replace($this->_absolutePath, '/', $file)));
             $contents[$index]['index']    = $this->checkIndex($file . DS);
         }
+
+        if ($sort) array_multisort($contents);
 
         return $contents;
     }
@@ -164,6 +177,10 @@ class Files {
         return false;
     }
 
+    public function correctSlash($value){
+        return \preg_replace('#\/\/#', '/', $value);
+    }
+
     /**
      * Obtenir la liste des dossiers et fichiers des parametres courants
      * @return array
@@ -171,105 +188,6 @@ class Files {
     public function getLists()
     {
         # code...
-    }
-
-    /**
-    * Converts bytes into human readable file size.
-    *
-    * @param string $bytes
-    * @return string human readable file size (2,87 Мб)
-    * @author Mogilev Arseny
-    */
-    public function FileSizeConvert($bytes)
-    {
-        $bytes = floatval($bytes);
-            $arBytes = array(
-                0 => array(
-                    "UNIT" => "TB",
-                    "VALUE" => pow(1024, 4)
-                ),
-                1 => array(
-                    "UNIT" => "GB",
-                    "VALUE" => pow(1024, 3)
-                ),
-                2 => array(
-                    "UNIT" => "MB",
-                    "VALUE" => pow(1024, 2)
-                ),
-                3 => array(
-                    "UNIT" => "KB",
-                    "VALUE" => 1024
-                ),
-                4 => array(
-                    "UNIT" => "B",
-                    "VALUE" => 1
-                ),
-            );
-
-        foreach($arBytes as $arItem)
-        {
-            if($bytes >= $arItem["VALUE"])
-            {
-                $result = $bytes / $arItem["VALUE"];
-                $result = str_replace(".", "," , strval(round($result, 2)))." ".$arItem["UNIT"];
-                break;
-            }
-        }
-        return $result;
-    }
-
-    /**
-    * Converti les permissions en format texte
-    */
-    public function fileConvertPerms($perms){
-      switch ($perms & 0xF000) {
-          case 0xC000: // socket
-              $info = 's';
-              break;
-          case 0xA000: // symbolic link
-              $info = 'l';
-              break;
-          case 0x8000: // regular
-              $info = 'r';
-              break;
-          case 0x6000: // block special
-              $info = 'b';
-              break;
-          case 0x4000: // directory
-              $info = 'd';
-              break;
-          case 0x2000: // character special
-              $info = 'c';
-              break;
-          case 0x1000: // FIFO pipe
-              $info = 'p';
-              break;
-          default: // unknown
-              $info = 'u';
-      }
-
-      // Owner
-      $info .= (($perms & 0x0100) ? 'r' : '-');
-      $info .= (($perms & 0x0080) ? 'w' : '-');
-      $info .= (($perms & 0x0040) ?
-                  (($perms & 0x0800) ? 's' : 'x' ) :
-                  (($perms & 0x0800) ? 'S' : '-'));
-
-      // Group
-      $info .= (($perms & 0x0020) ? 'r' : '-');
-      $info .= (($perms & 0x0010) ? 'w' : '-');
-      $info .= (($perms & 0x0008) ?
-                  (($perms & 0x0400) ? 's' : 'x' ) :
-                  (($perms & 0x0400) ? 'S' : '-'));
-
-      // World
-      $info .= (($perms & 0x0004) ? 'r' : '-');
-      $info .= (($perms & 0x0002) ? 'w' : '-');
-      $info .= (($perms & 0x0001) ?
-                  (($perms & 0x0200) ? 't' : 'x' ) :
-                  (($perms & 0x0200) ? 'T' : '-'));
-
-      return substr(sprintf('%o', $perms), -4) . ' (' . $info . ')';
     }
 
     /**
@@ -281,6 +199,11 @@ class Files {
     public static function isWindowsPath($path)
     {
         return (preg_match('/^[A-Z]:\\\\/i', $path) || substr($path, 0, 2) === '\\\\');
+    }
+
+    public function getDirectory()
+    {
+      return $this->_directory;
     }
 
 }

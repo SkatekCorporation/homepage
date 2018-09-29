@@ -58,6 +58,7 @@
     define("APPS_DIR",      ROOT     . DS . "application");
     define("TEMPLATES_DIR", APPS_DIR . DS . "Templates");
     define("CACHES_DIR",    ROOT     . DS . "tmp");
+    define("TMP",           ROOT     . DS . "tmp");
 
     /**
      * Definitions des constantes du coeur de l'application
@@ -82,6 +83,8 @@
      */
     define('IMAGES_ROOT', ROOT . DS . 'public' . DS . 'assets' . DS . 'img' . DS);
     define('IMAGES_TMP', IMAGES_DIR . 'temp' . DS);
+
+    define('READ_FILE_LINK', 'read_file_link/');
 
      /**
      * Pour l'affichage des variables en mode debugger,

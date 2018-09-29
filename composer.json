@@ -1,6 +1,6 @@
 {
-    "name": "skatek/wshp",
-    "description": "Lister les fichiers et dossiers de votre repertoire Web",
+    "name": "skatek/homepage",
+    "description": "Lister les fichiers et dossiers de votre repertoire Web public",
     "type": "project",
     "license": "MIT",
     "require": {
@@ -17,7 +17,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "application",
-            "Stephanie\\": "core"
+            "Stephanie\\": "core",
+            "Cake\\Filesystem\\": "imports/Filesystem"
         }
     },
     "minimum-stability": "stable"

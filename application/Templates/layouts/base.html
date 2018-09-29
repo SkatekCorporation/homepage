@@ -51,9 +51,13 @@
               </li> -->
               {% endblock %}
             </ul>
-            <form class="navbar-form navbar-right" id="search_form">
-              <input type="hidden" name="folder" value="{{ 34 }}">
-              <input type="text" class="form-control" name="search" id="search_field" placeholder="Recherche ...">
+            <form class="navbar-form navbar-right" id="search_form" action="{{ url('/recherche_query') }}">
+              <input type="hidden" name="search_folder" value="{{ current ?: '/' }}">
+              <input type="text" class="form-control" require="require" name="search" id="search_field" placeholder="Recherche ...">
+              <select class="form-control" name="search_depth">
+                <option value="dir">Uniquement dans ce dossier</option>
+                <option value="child">Ce dossier et ses enfants</option>
+              </select>
               <button type="submit" class="btn btn-primary">{{ icon('search') }} Rechercher</button>
             </form>
         </div><!--/.navbar-collapse -->
@@ -88,7 +92,7 @@
       <hr>
       <footer>
         {% block footer %}
-            <p class="text-center">&copy; Copyright 2018, {{ linkHtml('/apropos', software, { rel: 'tooltip', title: 'A propos' }) }} powered by {{ linkHtml('/skatek', 'Skatek Corporation', { rel: 'tooltip', title: 'A propos de Skatek Corporation' }) }} </p>
+            <p class="text-center">&copy; Copyright 2018, <strong>{{ software }}</strong>. Powered by {{ linkHtml('/skatek_corporation', 'Skatek Corporation', { rel: 'tooltip', title: 'A propos de Skatek Corporation' }) }} </p>
         {% endblock %}
       </footer>
       {% block beforefooter %}{% endblock %}

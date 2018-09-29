@@ -15,26 +15,11 @@ class Pages extends AppController {
     {
         $files = new Files();
 
-        // debug($files->getContents()); exit;
-
         $this->render('index', [
             'title' => 'Accueil',
-            'files' => $files->getContents()
+            'files' => $files->getContents(),
+            'current' => $files->getDirectory()
         ]);
-    }
-
-    public function search(){
-
-
-      debug(
-      $this->request->getData()
-    );
-    exit();
-
-      $files = new Files();
-      $this->render('table', [
-        'files' => $files->getContents()
-      ]);
     }
 
     public function skatek()
