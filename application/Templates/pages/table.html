@@ -14,7 +14,7 @@
                     <a href="{{ file.linki() }}" title="Ouvrir">
                       {{ file.name | icon('folder-open') }}
                     </a>
-                    {% if file.index %}
+                    {% if file.index() %}
                         <a href="{{ file.link }}" target="_blank" class="btn btn-xs btn-success pull-right" title="Explorer" rel="tooltip">
                             {{ icon('new-window') }} Explorer
                         </a>

@@ -149,7 +149,6 @@ class Files {
             $contents[$index]->setDirinfo($this->_directory);
             $contents[$index]->setLinki($this->correctSlash(str_replace($this->_absolutePath, $this->_relativePath, $file)));
             $contents[$index]->setLink($this->correctSlash(str_replace($this->_absolutePath, '/', $file)));
-            $contents[$index]['index']    = $this->checkIndex($file . DS);
         }
 
         if ($sort) array_multisort($contents);
@@ -157,28 +156,8 @@ class Files {
         return $contents;
     }
 
-    /**
-     * Verifie s'il existe un fichier index dans le directory
-     * @param string $dir Le nom du dossier terminer par /
-     * @return boolean
-     */
-    public function checkIndex($dir = null)
-    {
-        if (! is_dir($dir)) {
-            return false;
-        }
-
-        foreach ($this->_indexes as $index) {
-            if (is_file($dir . $index)) {
-                return $index;
-            }
-        }
-
-        return false;
-    }
-
     public function correctSlash($value){
-        return \preg_replace('#\/\/#', '/', $value);
+        return correctSlash($value);
     }
 
     /**

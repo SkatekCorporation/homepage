@@ -21,6 +21,13 @@ class Stream implements \ArrayAccess
 
     private $_linki;
 
+
+    /**
+     * Les fichiers reconnus comme index
+     * @var array
+     */
+    private $_indexes = ['index.html', 'index.php', 'default.php', 'index.cgi'];
+
     /**
      * Type du fichier
      */
@@ -229,6 +236,28 @@ class Stream implements \ArrayAccess
     }
 
     /**
+    * On Verifie si le dir dispose d'un fichier index
+    * @return boolean false|index
+    */
+    public function isIndex(){
+      if (! $this->isDir()) {
+        return false;
+      }
+
+      foreach ($this->_indexes as $index) {
+          if (is_file(correctSlash($this->_path . DS . $index))) {
+              return $index;
+          }
+      }
+      return false;
+    }
+
+    public function index()
+    {
+      return $this->isIndex();
+    }
+
+    /**
     * Converts bytes into human readable file size.
     *
     * @param string $bytes
@@ -258,7 +287,7 @@ class Stream implements \ArrayAccess
                 4 => array(
                     "UNIT" => "B",
                     "VALUE" => 1
-                ),  
+                ),
             );
         $result = '0 B';
         foreach($arBytes as $arItem)
@@ -275,7 +304,7 @@ class Stream implements \ArrayAccess
 
     /**
     * Converti les permissions en format texte
-    * @return string 
+    * @return string
     */
     private function fileConvertPerms($perms){
         switch ($perms & 0xF000) {

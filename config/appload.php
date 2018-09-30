@@ -6,7 +6,7 @@
 * @version 1.1
 * @importance Les fonctions globales de l'application ainsi que les importantes constantes
 */
-    
+
     /**
      * Si tu veut activer le cache ou le mode developpement/production
      * DEBUG => TRUE   Pour le developpement
@@ -21,7 +21,7 @@
 
     /**
     * Nom du domaine de l'application
-    * Si l'application se trouve dans un sous dossier, veuillez taper le chemin relatif vers le sous dossier 
+    * Si l'application se trouve dans un sous dossier, veuillez taper le chemin relatif vers le sous dossier
     * contenant l'application avec tout ses fichiers
     */
     define('DOMAIN', '/homepage/');
@@ -40,16 +40,16 @@
     define('DB_PASSWORD', 'none');
 
     define('DS', DIRECTORY_SEPARATOR);
-        
+
 
 
     /**
     * Affichage des erreurs
-    * 
+    *
     * Ceci est geré avec la valeur de la constante DEBUG
     */
     error_reporting(DEBUG ? E_ALL : FALSE);
-    
+
     /**
     * Les constantes des emplacements des fichiers de l'application
     * Il ne pas important de modifier les valeurs par defaut
@@ -95,7 +95,7 @@
         print_r($var);
         echo "</pre>";
     }
-    
+
     /**
      * Fonction globale pour afficher les erreurs
      * En attendant l'implementation de la class pour le FLASH
@@ -106,7 +106,7 @@
         echo "<br><div class=\"container\">";
         echo "<div class=\"alert alert-$class\">";
         echo "<h4>Veuillez corriger";
-        if (count($messages) > 1){ echo " les erreurs suivantes"; } 
+        if (count($messages) > 1){ echo " les erreurs suivantes"; }
         else { echo " l'erreur suivante"; }
         echo " :</h4>";
 
@@ -125,6 +125,10 @@
         echo '</div></div>';
     }
 
+    function correctSlash($value = null){
+      return \preg_replace('#\/\/#', '/', $value);
+    }
+
     function verification_interface(){
         if (php_sapi_name() == 'cli') {
             print("\n\tSalut!\n\tNous ne prenons pas encore en charge ce type d'interface\n\n");
@@ -132,4 +136,3 @@
             exit();
         }
     }
-    
