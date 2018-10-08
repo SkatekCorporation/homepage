@@ -1,11 +1,11 @@
 {% if files | length %}
 <table class="table table-striped table-hover tablesorter">
     <thead>
-        <th>{{ icon('tag') }} Description</th>
-        <th>{{ icon('home') }} Parent</th>
-        <th>{{ icon('hdd') }} Taille</th>
-        <th>{{ icon('lock') }} Permissions</th>
-        <th>{{ icon('calendar') }} Mis &agrave; jours</th>
+        <th title="Cliquer pour trier">{{ icon('tag') }} Description</th>
+        <th title="Cliquer pour trier">{{ icon('home') }} Parent</th>
+        <th title="Cliquer pour trier">{{ icon('hdd') }} Taille</th>
+        <th title="Cliquer pour trier">{{ icon('lock') }} Permissions</th>
+        <th title="Cliquer pour trier">{{ icon('calendar') }} Mis &agrave; jours</th>
     </thead>
     <tbody>
         {% for file in files %}
