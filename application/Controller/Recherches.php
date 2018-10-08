@@ -25,7 +25,7 @@ class Recherches extends AppController {
             'search_term' => $term,
             'current' => $this->request->getQuery('search_folder'),
             'search_nbre' => $nbre,
-            'resultats' => $results
+            'files' => $results
         ]);
     }
 
@@ -38,7 +38,7 @@ class Recherches extends AppController {
     private function find($dir = null, $term = null, $recursive = false){
         $files = new Files();
 
-        $contents = $files->setDirectory($dir)->getContents(); 
+        $contents = $files->setDirectory($dir)->getContents();
 
         if ($recursive) {
             $alls = [$contents];
@@ -51,14 +51,14 @@ class Recherches extends AppController {
             for($i = 0, $n = count($alls); $i < $n; $i++) {
                 $contents = array_merge($contents, $alls[$i]);
             }
-        }        
+        }
 
         $names = [];
-        foreach ($contents as $key => $value) $names[$key] = $value->getName();        
+        foreach ($contents as $key => $value) $names[$key] = $value->getName();
         $names = preg_grep('#'. $term . '#i', $names);
-        foreach ($names as $key => $value) $names[$key] = $contents[$key]; 
-        
+        foreach ($names as $key => $value) $names[$key] = $contents[$key];
+
         return array_values($names);
     }
-    
+
 }

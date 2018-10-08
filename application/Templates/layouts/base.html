@@ -23,6 +23,13 @@
 
     {% block css %}{% endblock %}
 
+    <style media="screen">
+      .c-webb{
+        color: #f0ea6c !important;
+        text-shadow: white 0px 1px 5px;
+      }
+    </style>
+
   </head>
 
   <body>
@@ -37,13 +44,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <span class="navbar-brand">Web Explorer</span>
+          <span class="navbar-brand c-webb">Web Explorer</span>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
               {% block menu %}
-              <li class="{{ activeClass('/') }}" > {{ linkHtml('/', 'Accueil') }} </li>
-              <li >
+              <li class="active"> {{ linkHtml('/', 'Accueil') }} </li>
+              <li class="active">
                 <a href="/phpmyadmin">PhpMyAdmin</a>
               </li>
               <!-- <li class="btn btn-danger btn-xs">
@@ -55,8 +62,8 @@
               <input type="hidden" name="search_folder" value="{{ current ?: '/' }}">
               <input type="text" class="form-control" require="require" name="search" id="search_field" placeholder="Recherche ...">
               <select class="form-control" name="search_depth">
-                <option value="dir">Uniquement dans ce dossier</option>
-                <option value="child">Ce dossier et ses enfants</option>
+                <option value="dir">Dans le dossier courant</option>
+                <option value="child">Dossier courant et ses enfants</option>
               </select>
               <button type="submit" class="btn btn-primary">{{ icon('search') }} Rechercher</button>
             </form>

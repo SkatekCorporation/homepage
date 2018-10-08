@@ -6,3 +6,4 @@
 */
 
 $('.tablesorter').tablesorter();
+$('[rel=tooltip]').tooltip();
