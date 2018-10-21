@@ -39,7 +39,10 @@
     define('DB_USERNAME', 'none');
     define('DB_PASSWORD', 'none');
 
-    define('DS', DIRECTORY_SEPARATOR);
+    if (!defined('DS')) {
+        define('DS', DIRECTORY_SEPARATOR);
+    }
+
 
 
 
